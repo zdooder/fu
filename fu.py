@@ -1,4 +1,4 @@
-import time, random 
+import time, random, sys
 import keyboard as keys
 from win32gui import GetWindowText, GetForegroundWindow
 from pynput.keyboard import Key, Controller
@@ -7,10 +7,12 @@ from rich.progress import track
 
 start_key = '.'
 
+version = '0.02'
+
 pretty.install()
 
 try:
-    print("[bright yellow]Oodlekode'[/]s personal [bright white]AntiAFK[/] LEGO Fortnite Idle Bot")
+    print("[bold yellow]Oodlekode'[/bold yellow]s personal [bold white]AntiAFK[/bold white] LEGO Fortnite Idle Bot v[bold cyan]%s[/bold cyan]" % version)
     print("Focus the LEGO Fortnite window and press [red]%s[/] to start the bot." % start_key)
 
     keyboard = Controller()
