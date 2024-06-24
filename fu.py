@@ -1,5 +1,6 @@
 import time, random 
 import keyboard as keys
+from win32gui import GetWindowText, GetForegroundWindow
 from pynput.keyboard import Key, Controller
 from rich import print, pretty
 from rich.progress import track
@@ -24,13 +25,18 @@ try:
                 msg = "      SLEEP %0.3f SECONDS " % (delay/1000.)
                 for i in track(range(int(delay/100)), msg):
                     time.sleep(0.1)
-                key = random.choice(keys)
-                delay = random.randint(150,5500)
-                msg = "PRESS %c FOR %0.3f SECONDS " % (key, delay/1000.)
-                keyboard.press(key)
-                for i in track(range(int(delay/100)), msg):
-                    time.sleep(0.1)
-                keyboard.release(key)
+                cur_text = GetWindowText(GetForegroundWindow())
+                if cur_text != "Fortnite  ":
+                    print("\a[red]Fortnite is not in foreground, not typing anything.")
+                    #([bright yellow]%s[/])" % cur_text)
+                else:
+                    key = random.choice(keys)
+                    delay = random.randint(150,5500)
+                    msg = "PRESS %c FOR %0.3f SECONDS " % (key, delay/1000.)
+                    keyboard.press(key)
+                    for i in track(range(int(delay/100)), msg):
+                        time.sleep(0.1)
+                    keyboard.release(key)
         else:
             time.sleep(0.1)
 except SystemExit:
